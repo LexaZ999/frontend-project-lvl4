@@ -35,7 +35,8 @@ rules:
   functional/functional-parameters: 0
   functional/no-try-statement: 0
   functional/no-throw-statement: 0
-  
+  no-param-reassign: 0
+    
   react/function-component-definition:
   - 2
   - namedComponents:
@@ -52,3 +53,4 @@ rules:
     controlComponents:
     - CustomInput
     depth: 3
+  
