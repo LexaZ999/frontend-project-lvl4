@@ -9,9 +9,10 @@ import Channels from '../components/Channels.jsx';
 import ChannelHeader from '../components/ChannelHeader.jsx';
 import MessageBox from '../components/MessageBox.jsx';
 import MessageForm from '../components/MessageForm.jsx';
+import { addMessages } from '../slices/messagesSlice.js';
 
 const Home = () => {
-  const { authUser } = useSelector((state) => state);
+  const { authUser, messages } = useSelector((state) => state);
   if (authUser.status !== 'login') return <Navigate to="/login" />;
   const dispatch = useDispatch();
 
@@ -23,9 +24,12 @@ const Home = () => {
         },
       });
       dispatch(setState(res.data));
+      dispatch(addMessages(res.data.messages));
     };
     fetchData();
   }, []);
+
+  console.log(26, messages);
 
   return (
     <Container className="h-100 my-4 overflow-hidden rounded shadow">

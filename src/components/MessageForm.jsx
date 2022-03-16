@@ -1,11 +1,24 @@
-import React from 'react';
+import React, { useContext, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
 import { ArrowRightSquare } from 'react-bootstrap-icons';
 import messageSubmit from '../messageSubmit.js';
+import SocketContext from '../SocketContext.js';
+import { addMessage } from '../slices/messagesSlice.js';
 
 const MessageForm = () => {
-  console.log();
+  const socket = useContext(SocketContext);
+  const { authUser } = useSelector((state) => state);
+
+  const dispatch = useDispatch();
+
+  socket.on('newMessage', (msg) => {
+    dispatch(addMessage(msg));
+  });
+
+  const formMessage = useRef(null);
+
   return (
     <div className="mt-auto px-5 py-3">
       <Formik
@@ -13,10 +26,10 @@ const MessageForm = () => {
         validationSchema={Yup.object({
           message: Yup.string().required('Required'),
         })}
-        onSubmit={messageSubmit}
+        onSubmit={messageSubmit(socket, formMessage, authUser)}
       >
         {({ isValid, values }) => (
-          <Form className="py-1 border rounded-2">
+          <Form className="py-1 border rounded-2" ref={formMessage}>
             <div className="input-group has-validation">
               <Field
                 name="message"
