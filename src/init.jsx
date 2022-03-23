@@ -2,15 +2,13 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { io } from 'socket.io-client';
 import App from './App.jsx';
-import store from './slices/index.js';
+import store from './slices/store.js';
 import SocketContext from './SocketContext.js';
+import socketEventHandlers from './socketEventHandlers.js';
 
 const init = () => {
   const socket = io();
-
-  socket.on('connect', () => {
-    console.log(socket);
-  });
+  socketEventHandlers(socket);
 
   return (
     <SocketContext.Provider value={socket}>
