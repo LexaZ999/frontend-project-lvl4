@@ -15,27 +15,30 @@ import ChannelModal from '../components/modals/ChannelModal.jsx';
 
 const Home = () => {
   const { authUser } = useSelector((state) => state);
-  if (authUser.status !== 'login') return <Navigate to="/login" />;
   const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get(routes.dataPath(), {
-        headers: {
-          Authorization: `Bearer ${authUser.token}`,
-        },
-      });
-      dispatch(addMessages(res.data.messages));
-      dispatch(addChannels(res.data.channels));
+      try {
+        const res = await axios.get(routes.dataPath(), {
+          headers: {
+            Authorization: `Bearer ${authUser.token}`,
+          },
+        });
+        dispatch(addMessages(res.data.messages));
+        dispatch(addChannels(res.data.channels));
+      } catch (error) {
+        console.log(error);
+      }
     };
-    fetchData();
+    if (authUser.status === 'login') fetchData();
   }, []);
+
+  if (authUser.status !== 'login') return <Navigate to="/login" />;
 
   return (
     <>
-      <ChannelModal
-        onHide={() => dispatch(resetModalShow())}
-      />
+      <ChannelModal onHide={() => dispatch(resetModalShow())} />
       <Container className="h-100 my-4 overflow-hidden rounded shadow">
         <Row className="h-100 bg-white flex-md-row">
           <Col xs="4" md="3" className="border-end pt-5 px-0 bg-light">

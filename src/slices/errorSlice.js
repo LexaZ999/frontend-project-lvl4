@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   loginError: [],
+  signupError: [],
 };
 
 const errorSlice = createSlice({
@@ -16,9 +17,23 @@ const errorSlice = createSlice({
     removeLoginErr: (state) => {
       state.loginError = [];
     },
+    addSignupErr: (state, action) => {
+      const { signupError } = state;
+      const error = action.payload;
+      state.signupError = [...signupError, error];
+    },
+    removeSignupErr: (state) => {
+      state.signupError = [];
+    },
+
   },
 });
 
-export const { addLoginErr, removeLoginErr } = errorSlice.actions;
+export const {
+  addLoginErr,
+  removeLoginErr,
+  addSignupErr,
+  removeSignupErr,
+} = errorSlice.actions;
 
 export default errorSlice.reducer;
