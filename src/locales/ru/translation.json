@@ -1,4 +1,60 @@
 {
-  "lng": "en",
-  "login": "Войти"
+  "loginForm": {
+    "title": "Войти",
+    "name": "Ваш ник",
+    "password": "Пароль",
+    "submit": "Войти",
+    "footer": "Нет аккаунта? ",
+    "link to registration": "Регистрация",
+    "error": "Неверные имя пользователя или пароль"
+  },
+  "signupForm": {
+    "title": "Регистрация",
+    "name": "Ваш ник",
+    "password": "Пароль",
+    "confirmPassword": "Подтвердите пароль",
+    "submit": "Зарегистрироваться",
+    "errors": {
+      "nameLength": "От 3 до 20 символов",
+      "required": "Обязательное поле",
+      "passwordLength": "Не менее 6 символов",
+      "similarity": "Пароли должны совпадать",
+      "exist": "Такой пользователь уже существует"
+    }
+  },
+  "messageForm": {
+    "input": "Введите сообщение...",
+    "submit": "Отправить"
+  },
+  "channels": "Каналы",
+  "messages": {
+    "key_zero": "{{count}} сообщений",
+    "key_one": "{{count}} сообщение",
+    "key_few": "{{count}} сообщения",
+    "key_many": "{{count}} сообщений"
+  },
+  "dropdown": {
+    "remove": "Удалить",
+    "rename": "Переименовать"
+  },
+  "modal": {
+    "errors": {
+      "length": "От 3 до 20 символов",
+      "required": "Обязательное поле",
+      "unique": "Должно быть уникальным"
+    },
+    "cancel": "Отменить",
+    "submit": "Отправить",
+    "remove": "Удалить",
+    "addChannel": "Добавить канал",
+    "removeChannel": "Удалить канал",
+    "renameChannel": "Переименовать канал",
+    "warning": "Уверены?"
+  },
+  "notFound": {
+    "title": "Страница не найдена",
+    "text": "Но вы можете перейти ",
+    "link": "на главную страницу"
+  },
+  "logout": "Выйти"
 }

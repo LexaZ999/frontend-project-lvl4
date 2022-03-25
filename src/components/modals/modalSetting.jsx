@@ -4,15 +4,15 @@ import ModalRemoveBody from './ModalRemoveBody.jsx';
 
 export default {
   addChannel: {
-    title: 'Добавить канал',
+    title: (t) => t('modal.addChannel'),
     body: (onHide) => <ChannelForm onHide={onHide} />,
   },
   removeChannel: {
-    title: 'Удалить канал',
+    title: (t) => t('modal.removeChannel'),
     body: (onHide) => <ModalRemoveBody onHide={onHide} />,
   },
   renameChannel: {
-    title: 'Переименовать канал',
+    title: (t) => t('modal.renameChannel'),
     body: (onHide, channelName) => (
       <ChannelForm onHide={onHide} initialValue={channelName} />
     ),

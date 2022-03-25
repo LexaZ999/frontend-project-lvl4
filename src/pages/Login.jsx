@@ -1,10 +1,13 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import LoginForm from '../components/LoginForm.jsx';
 
 const Login = () => {
   const authUser = useSelector((state) => state.authUser);
+  const { t } = useTranslation();
+
   if (authUser.status === 'login') return <Navigate to="/" />;
 
   return (
@@ -20,9 +23,9 @@ const Login = () => {
             </div>
             <div className="card-footer p-4">
               <div className="text-center">
-                <span>Нет аккаунта? </span>
+                <span>{t('loginForm.footer')}</span>
                 <a href="/signup">
-                  Регистрация
+                  {t('loginForm.link to registration')}
                 </a>
               </div>
             </div>

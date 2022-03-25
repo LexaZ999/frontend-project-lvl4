@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { Button } from 'react-bootstrap';
@@ -12,15 +13,17 @@ const ChannelForm = ({ onHide, initialValue = '' }) => {
   const { entities, channelForChangeId } = useSelector(
     (state) => state.channels,
   );
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const channelList = Object.values(entities).map(({ name }) => name);
 
   const SignupSchema = Yup.object().shape({
     name: Yup.string()
-      .min(3, 'От 3 до 20 символов')
-      .max(20, 'От 3 до 20 символов')
-      .required('Обязательное поле')
-      .notOneOf(channelList, 'Должно быть уникальным')
+      .min(3, t('modal.errors.length'))
+      .max(20, t('modal.errors.length'))
+      .required(t('modal.errors.required'))
+      .notOneOf(channelList, t('modal.errors.unique'))
       .trim(),
   });
 
@@ -62,10 +65,10 @@ const ChannelForm = ({ onHide, initialValue = '' }) => {
             </div>
             <div className="d-flex justify-content-end">
               <Button variant="secondary" className="me-2" onClick={onHide}>
-                Отменить
+                {t('modal.cancel')}
               </Button>
               <Button variant="primary" type="submit">
-                Отправить
+                {t('modal.submit')}
               </Button>
             </div>
           </Form>

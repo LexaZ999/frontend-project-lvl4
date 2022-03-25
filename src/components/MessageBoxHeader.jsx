@@ -1,8 +1,10 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
 const MessageBoxHeader = () => {
   const { channels, messages } = useSelector((state) => state);
+  const { t } = useTranslation();
   const { entities, currentChannelId } = channels;
   const currentChannelName = entities[currentChannelId]?.name;
   const messagesCurrentChannel = messages.ids.filter(
@@ -14,7 +16,9 @@ const MessageBoxHeader = () => {
       <p className="m-0">
         <b>{`# ${currentChannelName}`}</b>
       </p>
-      <span className="text-muted">{`${messagesCount} сообщения`}</span>
+      <span className="text-muted">
+        {t('messages.key', { count: messagesCount })}
+      </span>
     </div>
   );
 };

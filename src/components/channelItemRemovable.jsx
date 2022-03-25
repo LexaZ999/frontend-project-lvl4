@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dropdown, ButtonGroup } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import ChannelItem from './channelItem.jsx';
 import { setModalShow } from '../slices/modalSlice.js';
 import { setChannelForChange } from '../slices/channelsSlice.js';
@@ -13,6 +14,7 @@ const handler = (dispatch, type, id) => () => {
 const ChannelItemRemovable = ({ id }) => {
   const { currentChannelId } = useSelector((state) => state.channels);
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   return (
     <Dropdown
@@ -30,13 +32,13 @@ const ChannelItemRemovable = ({ id }) => {
           as="button"
           onClick={handler(dispatch, 'removeChannel', id)}
         >
-          Удалить
+          {t('dropdown.remove')}
         </Dropdown.Item>
         <Dropdown.Item
           as="button"
           onClick={handler(dispatch, 'renameChannel', id)}
         >
-          Переименовать
+          {t('dropdown.rename')}
         </Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>

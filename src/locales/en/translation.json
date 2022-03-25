@@ -1,4 +1,58 @@
 {
-  "lng": "ru",
-  "login": "Log in"
+  "loginForm": {
+    "title": "Login",
+    "name": "Username",
+    "password": "Password",
+    "submit": "Login",
+    "footer": "Don't have an account yet? ",
+    "link to registration": "Sign up",
+    "error": "Invalid username or password"
+  },
+  "signupForm": {
+    "title": "Registration",
+    "name": "Username",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "submit": "Sign Up",
+    "errors": {
+      "nameLength": "3 to 20 characters",
+      "required": "Required field",
+      "passwordLength": "At least 6 characters",
+      "similarity": "Passwords must match",
+      "exist": "Such a user already exists"
+    }
+  },
+  "messageForm": {
+    "input": "Enter a message...",
+    "submit": "Send a message"
+  },
+  "channels": "Channels",
+  "messages": {
+    "key_one": "{{count}} message",
+    "key_other": "{{count}} messages"
+  },
+  "dropdown": {
+    "remove": "Remove",
+    "rename": "Rename"
+  },
+  "modal": {
+    "errors": {
+      "length": "3 to 20 characters",
+      "required": "Required field",
+      "unique": "Must be unique"
+    },
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "remove": "Remove",
+    "addChannel": "Add channel",
+    "removeChannel": "Remove channel",
+    "renameChannel": "Rename channel",
+    "warning": "Are you sure?"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "text": "But you can go to the ",
+    "link": "main page"
+  },
+  "logout": "Log out"
 }

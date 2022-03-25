@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { Modal } from 'react-bootstrap';
 import modalSettingByEnv from './modalSetting.jsx';
 
@@ -13,6 +14,7 @@ const ChannelModal = ({ onHide }) => {
     .find((channel) => channel.id === channelForChangeId);
 
   const modalConfiguration = modalSettingByEnv[modalShow];
+  const { t } = useTranslation();
 
   return (
     <Modal
@@ -23,7 +25,7 @@ const ChannelModal = ({ onHide }) => {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          {modalConfiguration?.title}
+          {modalConfiguration?.title(t)}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>

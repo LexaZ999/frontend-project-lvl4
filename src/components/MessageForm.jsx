@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
 import { ArrowRightSquare } from 'react-bootstrap-icons';
@@ -12,6 +13,8 @@ const MessageForm = () => {
 
   const formMessage = useRef(null);
   const inputField = useRef(null);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     inputField.current.focus();
@@ -34,7 +37,7 @@ const MessageForm = () => {
                 name="message"
                 type="text"
                 className="border-0 p-0 ps-2 form-control"
-                placeholder="Введите сообщение..."
+                placeholder={t('messageForm.input')}
                 aria-label="Новое сообщение"
               />
               <button
@@ -43,7 +46,7 @@ const MessageForm = () => {
                 disabled={!isValid || !values.message.trim()}
               >
                 <ArrowRightSquare size={20} />
-                <span className="visually-hidden">Отправить</span>
+                <span className="visually-hidden">{t('messageForm.submit')}</span>
               </button>
             </div>
           </Form>

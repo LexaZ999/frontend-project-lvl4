@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
+import { useTranslation } from 'react-i18next';
 import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
 import cn from 'classnames';
@@ -8,15 +8,15 @@ import loginSubmit from '../loginSubmit.js';
 
 const LoginForm = () => {
   const authUser = useSelector((state) => state.authUser);
-  const dispatch = useDispatch();
-
   const { loginError } = useSelector((state) => state.errors);
+  const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const isUnauthorizedErr = loginError.includes(401);
-
   const inputClass = cn('form-control', {
     'is-invalid': isUnauthorizedErr,
   });
+
   return (
     <Formik
       initialValues={{ username: '', password: '' }}
@@ -31,7 +31,7 @@ const LoginForm = () => {
     >
       <Form className="col-12 col-md-6 mt-3 mt-mb-0">
         <h1 className="text-center mb-4">
-          Войти
+          {t('loginForm.title')}
         </h1>
         <div className="form-floating mb-3">
           <Field
@@ -39,9 +39,9 @@ const LoginForm = () => {
             type="text"
             id="username"
             className={inputClass}
-            placeholder="Ваш ник"
+            placeholder={t('loginForm.name')}
           />
-          <label htmlFor="username">Ваш ник</label>
+          <label htmlFor="username">{t('loginForm.name')}</label>
         </div>
 
         <div className="form-floating mb-4">
@@ -50,12 +50,12 @@ const LoginForm = () => {
             type="password"
             id="password"
             className={inputClass}
-            placeholder="Пароль"
+            placeholder={t('loginForm.password')}
           />
-          <label htmlFor="username">Пароль</label>
-          {isUnauthorizedErr ? <div className="invalid-feedback">Неверные имя пользователя или пароль</div> : null }
+          <label htmlFor="username">{t('loginForm.password')}</label>
+          {isUnauthorizedErr ? <div className="invalid-feedback">{t('loginForm.error')}</div> : null }
         </div>
-        <button className="w-100 mb-3 btn btn-outline-primary" type="submit">Войти</button>
+        <button className="w-100 mb-3 btn btn-outline-primary" type="submit">{t('loginForm.submit')}</button>
       </Form>
     </Formik>
   );

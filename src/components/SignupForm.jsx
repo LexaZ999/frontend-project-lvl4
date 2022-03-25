@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
+import { useTranslation } from 'react-i18next';
 import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
 import cn from 'classnames';
@@ -18,26 +18,28 @@ const SignupForm = () => {
     inputUsername.current.focus();
   });
 
+  const { t } = useTranslation();
+
   return (
     <Formik
       initialValues={{ username: '', password: '', confirmPassword: '' }}
       validationSchema={Yup.object({
         username: Yup.string()
-          .min(3, 'От 3 до 20 символов')
-          .max(20, 'От 3 до 20 символов')
-          .required('Обязательное поле'),
+          .min(3, t('signupForm.errors.nameLength'))
+          .max(20, t('signupForm.errors.nameLength'))
+          .required(t('signupForm.errors.required')),
         password: Yup.string()
-          .min(6, 'Не менее 6 символов')
-          .required('Обязательное поле'),
+          .min(6, t('signupForm.errors.passwordLength'))
+          .required(t('signupForm.errors.required')),
         confirmPassword: Yup.string()
-          .oneOf([Yup.ref('password')], 'Пароли должны совпадать')
-          .required('Обязательное поле'),
+          .oneOf([Yup.ref('password')], t('signupForm.errors.similarity'))
+          .required(t('signupForm.errors.required')),
       })}
       onSubmit={signupHandler(dispatch)}
     >
       {({ errors, touched }) => (
         <Form className="">
-          <h1 className="text-center mb-4">Регистрация</h1>
+          <h1 className="text-center mb-4">{t('signupForm.title')}</h1>
           <div className="form-floating mb-3">
             <Field
               name="username"
@@ -47,13 +49,13 @@ const SignupForm = () => {
                 'is-invalid':
                   (errors.username && touched.username) || isConflict,
               })}
-              placeholder="Ваш ник"
+              placeholder={t('signupForm.name')}
               innerRef={inputUsername}
             />
-            <label htmlFor="username">Ваш ник</label>
+            <label htmlFor="username">{t('signupForm.name')}</label>
             {isConflict ? (
               <div className="invalid-feedback">
-                Такой пользователь уже существует
+                {t('signupForm.errors.exist')}
               </div>
             ) : null}
             <div className="invalid-feedback">
@@ -69,9 +71,9 @@ const SignupForm = () => {
               className={cn('mb-2', 'form-control', {
                 'is-invalid': errors.password && touched.password,
               })}
-              placeholder="Пароль"
+              placeholder={t('signupForm.password')}
             />
-            <label htmlFor="username">Пароль</label>
+            <label htmlFor="username">{t('signupForm.password')}</label>
             <div className="invalid-feedback">
               {errors.password && touched.password ? errors.password : null}
             </div>
@@ -84,9 +86,9 @@ const SignupForm = () => {
               className={cn('mb-2', 'form-control', {
                 'is-invalid': errors.confirmPassword && touched.confirmPassword,
               })}
-              placeholder="Подтвердите пароль"
+              placeholder={t('signupForm.confirmPassword')}
             />
-            <label htmlFor="username">Подтвердите пароль</label>
+            <label htmlFor="username">{t('signupForm.confirmPassword')}</label>
             <div className="invalid-feedback">
               {errors.confirmPassword && touched.confirmPassword
                 ? errors.confirmPassword
@@ -95,7 +97,7 @@ const SignupForm = () => {
           </div>
 
           <button className="w-100 mb-3 btn btn-outline-primary" type="submit">
-            Зарегистрироваться
+            {t('signupForm.submit')}
           </button>
         </Form>
       )}
