@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import logoutHandler from '../logoutHandler.js';
+import LanguageSwitch from './LanguageSwitch.jsx';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -13,11 +14,14 @@ const Header = () => {
         <a className="navbar-brand" href="/">
           Hexlet Chat
         </a>
-        {status === 'login' ? (
-          <Button variant="primary" onClick={logoutHandler(dispatch)}>
-            Выйти
-          </Button>
-        ) : null}
+        <div>
+          {status === 'login' ? (
+            <Button variant="primary" onClick={logoutHandler(dispatch)}>
+              Выйти
+            </Button>
+          ) : null}
+          <LanguageSwitch />
+        </div>
       </div>
     </nav>
   );
