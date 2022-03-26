@@ -14,6 +14,7 @@ import { addMessages } from '../slices/messagesSlice.js';
 import { addChannels } from '../slices/channelsSlice';
 import { resetModalShow } from '../slices/modalSlice';
 import ChannelModal from '../components/modals/ChannelModal.jsx';
+import filterBadWords from '../filterBadWords';
 
 const Home = () => {
   const { authUser } = useSelector((state) => state);
@@ -28,7 +29,12 @@ const Home = () => {
             Authorization: `Bearer ${authUser.token}`,
           },
         });
-        dispatch(addMessages(res.data.messages));
+
+        const { messages } = res.data;
+        const filtredMessages = messages.map(({ message, ...rest }) => ({
+          message: filterBadWords(message), ...rest,
+        }));
+        dispatch(addMessages(filtredMessages));
         dispatch(addChannels(res.data.channels));
       } catch (error) {
         toast.error(t('popUp.networkError'));

@@ -1,3 +1,4 @@
+import filterBadWords from './filterBadWords.js';
 import {
   addChannel,
   removeChannel,
@@ -20,8 +21,8 @@ const socketEventHandlers = (socket) => {
   socket.on('renameChannel', (channel) => {
     store.dispatch(setChannel(channel));
   });
-  socket.on('newMessage', (msg) => {
-    store.dispatch(addMessage(msg));
+  socket.on('newMessage', ({ message, ...rest }) => {
+    store.dispatch(addMessage({ message: filterBadWords(message), ...rest }));
   });
 };
 
