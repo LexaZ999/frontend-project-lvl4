@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import axios from 'axios';
 import routes from './routes.js';
 import { login } from './slices/authUserSlice.js';
@@ -14,6 +15,8 @@ const loginSubmit = (dispatch) => async (values) => {
 
     dispatch(login(user));
   } catch (error) {
+    toast.error('Ошибка соединения');
+    console.log(25, error.response);
     const { response: { status } } = error;
     dispatch(addLoginErr(status));
   }

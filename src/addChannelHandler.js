@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { setCurrentChannel } from './slices/channelsSlice.js';
 
 const addChannelSubmit = (socket, onHide, dispatch) => (channelName) => {
@@ -8,11 +9,11 @@ const addChannelSubmit = (socket, onHide, dispatch) => (channelName) => {
       channelName,
       (err, response) => {
         if (err) {
-          console.log(101, err, 'connection error');
+          toast.error('Ошибка соединения');
         } else {
           onHide();
           dispatch(setCurrentChannel(response.data.id));
-          // console.log(102, response);
+          toast.success('Канал создан');
         }
       },
     );

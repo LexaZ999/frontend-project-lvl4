@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { Container, Row, Col } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 import routes from '../routes';
 import Channels from '../components/Channels.jsx';
 import MessageBoxHeader from '../components/MessageBoxHeader.jsx';
@@ -28,7 +29,7 @@ const Home = () => {
         dispatch(addMessages(res.data.messages));
         dispatch(addChannels(res.data.channels));
       } catch (error) {
-        console.log(error);
+        toast.error('Ошибка соединения');
       }
     };
     if (authUser.status === 'login') fetchData();

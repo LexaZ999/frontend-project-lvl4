@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import axios from 'axios';
 import routes from './routes.js';
 import { login } from './slices/authUserSlice.js';
@@ -13,6 +14,7 @@ const signupHandler = (dispatch) => async (values) => {
     localStorage.setItem('user', JSON.stringify(user));
     dispatch(login(user));
   } catch (error) {
+    toast.error('Ошибка соединения');
     const { status } = error.response;
     dispatch(addSignupErr(status));
   }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
-
+import { ToastContainer } from 'react-toastify';
 import { login } from './slices/authUserSlice.js';
 import Header from './components/Header.jsx';
 import NotFound from './pages/NotFound.jsx';
@@ -25,6 +25,7 @@ const App = () => {
           <Route path="*" element={<NotFound />} />
           <Route path="signup" element={<Signup />} />
         </Routes>
+        <ToastContainer />
       </div>
     </BrowserRouter>
   );

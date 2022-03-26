@@ -1,14 +1,17 @@
+import { toast } from 'react-toastify';
+
 const removeChannelHandler = (socket, onHide, channelForChangeId) => () => {
   socket
     .timeout(5000)
     .emit(
       'removeChannel',
       { id: channelForChangeId },
-      (err, response) => {
+      (err) => {
         if (err) {
-          console.log(101, err, response, 'connection error');
+          toast.error('Ошибка соединения');
         } else {
           onHide();
+          toast.success('Канал удален');
         }
       },
     );
