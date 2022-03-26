@@ -35,7 +35,7 @@ const SignupForm = () => {
           .oneOf([Yup.ref('password')], t('signupForm.errors.similarity'))
           .required(t('signupForm.errors.required')),
       })}
-      onSubmit={signupHandler(dispatch)}
+      onSubmit={signupHandler(dispatch, t)}
     >
       {({ errors, touched }) => (
         <Form className="">

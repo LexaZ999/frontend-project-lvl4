@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify';
 
-const messageSubmit = (socket, formMessage, authUser, currentChannelId) => (message) => {
+const messageSubmit = (socket, formMessage, authUser, currentChannelId, t) => (message) => {
   socket
     .timeout(5000)
     .emit(
@@ -8,7 +8,7 @@ const messageSubmit = (socket, formMessage, authUser, currentChannelId) => (mess
       { ...message, author: authUser.username, channelId: currentChannelId },
       (err) => {
         if (err) {
-          toast.error('Ошибка соединения');
+          toast.error(t('popUp.networkError'));
         }
       },
     );

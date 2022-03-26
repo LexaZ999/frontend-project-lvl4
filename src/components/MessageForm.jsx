@@ -27,7 +27,7 @@ const MessageForm = () => {
         validationSchema={Yup.object({
           message: Yup.string().required('Required'),
         })}
-        onSubmit={messageSubmit(socket, formMessage, authUser, currentChannelId)}
+        onSubmit={messageSubmit(socket, formMessage, authUser, currentChannelId, t)}
       >
         {({ isValid, values }) => (
           <Form className="py-1 border rounded-2" ref={formMessage}>

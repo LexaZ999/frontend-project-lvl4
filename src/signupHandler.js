@@ -4,7 +4,7 @@ import routes from './routes.js';
 import { login } from './slices/authUserSlice.js';
 import { addSignupErr, removeSignupErr } from './slices/errorSlice.js';
 
-const signupHandler = (dispatch) => async (values) => {
+const signupHandler = (dispatch, t) => async (values) => {
   try {
     dispatch(removeSignupErr());
 
@@ -13,10 +13,13 @@ const signupHandler = (dispatch) => async (values) => {
 
     localStorage.setItem('user', JSON.stringify(user));
     dispatch(login(user));
-  } catch (error) {
-    toast.error('Ошибка соединения');
-    const { status } = error.response;
-    dispatch(addSignupErr(status));
+  } catch (err) {
+    if (err.response) {
+      const { response: { status } } = err;
+      dispatch(addSignupErr(status));
+    } else {
+      toast.error(t('popUp.networkError'));
+    }
   }
 };
 

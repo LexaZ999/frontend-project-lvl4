@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { Container, Row, Col } from 'react-bootstrap';
 import { toast } from 'react-toastify';
@@ -17,6 +18,7 @@ import ChannelModal from '../components/modals/ChannelModal.jsx';
 const Home = () => {
   const { authUser } = useSelector((state) => state);
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,7 +31,7 @@ const Home = () => {
         dispatch(addMessages(res.data.messages));
         dispatch(addChannels(res.data.channels));
       } catch (error) {
-        toast.error('Ошибка соединения');
+        toast.error(t('popUp.networkError'));
       }
     };
     if (authUser.status === 'login') fetchData();

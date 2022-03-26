@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'react-bootstrap';
 import removeChannelHandler from '../../removeChannelHandler.js';
@@ -8,7 +8,6 @@ import SocketContext from '../../SocketContext.js';
 const ModalRemoveBody = ({ onHide }) => {
   const socket = useContext(SocketContext);
   const { channelForChangeId } = useSelector((state) => state.channels);
-  const dispatch = useDispatch();
   const { t } = useTranslation();
   return (
     <>
@@ -23,7 +22,7 @@ const ModalRemoveBody = ({ onHide }) => {
             socket,
             onHide,
             channelForChangeId,
-            dispatch,
+            t,
           )}
         >
           {t('modal.remove')}

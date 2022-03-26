@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify';
 
-const renameChannelHandler = (socket, onHide, channelForChangeId) => (
+const renameChannelHandler = (socket, onHide, channelForChangeId, t) => (
   { name },
 ) => {
   socket
@@ -13,10 +13,10 @@ const renameChannelHandler = (socket, onHide, channelForChangeId) => (
       },
       (err) => {
         if (err) {
-          toast.error('Ошибка соединения');
+          toast.error(t('popUp.networkError'));
         } else {
           onHide();
-          toast.success('Канал переименован');
+          toast.success(t('popUp.channelRenamed'));
         }
       },
     );

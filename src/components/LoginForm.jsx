@@ -7,7 +7,6 @@ import cn from 'classnames';
 import loginSubmit from '../loginSubmit.js';
 
 const LoginForm = () => {
-  const authUser = useSelector((state) => state.authUser);
   const { loginError } = useSelector((state) => state.errors);
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -27,7 +26,7 @@ const LoginForm = () => {
         password: Yup.string()
           .required('Password is required'),
       })}
-      onSubmit={loginSubmit(dispatch, authUser)}
+      onSubmit={loginSubmit(dispatch, t)}
     >
       <Form className="col-12 col-md-6 mt-3 mt-mb-0">
         <h1 className="text-center mb-4">

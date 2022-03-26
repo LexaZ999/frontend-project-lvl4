@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
 import { setCurrentChannel } from './slices/channelsSlice.js';
 
-const addChannelSubmit = (socket, onHide, dispatch) => (channelName) => {
+const addChannelHandler = (socket, onHide, dispatch, t) => (channelName) => {
   socket
     .timeout(5000)
     .emit(
@@ -9,14 +9,14 @@ const addChannelSubmit = (socket, onHide, dispatch) => (channelName) => {
       channelName,
       (err, response) => {
         if (err) {
-          toast.error('Ошибка соединения');
+          toast.error(t('popUp.networkError'));
         } else {
           onHide();
           dispatch(setCurrentChannel(response.data.id));
-          toast.success('Канал создан');
+          toast.success(t('popUp.channelAdded'));
         }
       },
     );
 };
 
-export default addChannelSubmit;
+export default addChannelHandler;

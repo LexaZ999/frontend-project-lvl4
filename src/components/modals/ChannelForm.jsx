@@ -42,8 +42,8 @@ const ChannelForm = ({ onHide, initialValue = '' }) => {
       validationSchema={SignupSchema}
       onSubmit={
         initialValue
-          ? renameChannelHandler(socket, onHide, channelForChangeId)
-          : addChannelHandler(socket, onHide, dispatch)
+          ? renameChannelHandler(socket, onHide, channelForChangeId, t)
+          : addChannelHandler(socket, onHide, dispatch, t)
       }
     >
       {({ touched, errors, handleBlur }) => (

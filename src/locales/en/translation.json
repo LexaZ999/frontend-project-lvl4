@@ -54,5 +54,12 @@
     "text": "But you can go to the ",
     "link": "main page"
   },
-  "logout": "Log out"
+  "logout": "Log out",
+  "popUp": {
+    "networkError": "Network error",
+    "channelAdded": "Channel added",
+    "channelRemoved": "Channel removed",
+    "channelRenamed": "Channel renamed"
+  }
+
 }

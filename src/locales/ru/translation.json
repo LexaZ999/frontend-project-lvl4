@@ -56,5 +56,11 @@
     "text": "Но вы можете перейти ",
     "link": "на главную страницу"
   },
-  "logout": "Выйти"
+  "logout": "Выйти",
+  "popUp": {
+    "networkError": "Ошибка соединения",
+    "channelAdded": "Канал создан",
+    "channelRemoved": "Канал удален",
+    "channelRenamed": "Канал переименован"
+  }
 }
