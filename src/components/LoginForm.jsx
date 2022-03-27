@@ -4,14 +4,14 @@ import { useTranslation } from 'react-i18next';
 import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
 import cn from 'classnames';
-import loginSubmit from '../loginSubmit.js';
+import submitForm from '../submitForm.js';
 
 const LoginForm = () => {
-  const { loginError } = useSelector((state) => state.errors);
+  const { login } = useSelector((state) => state.errors);
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const isUnauthorizedErr = loginError.includes(401);
+  const isUnauthorizedErr = login.includes(401);
   const inputClass = cn('form-control', {
     'is-invalid': isUnauthorizedErr,
   });
@@ -26,7 +26,7 @@ const LoginForm = () => {
         password: Yup.string()
           .required('Password is required'),
       })}
-      onSubmit={loginSubmit(dispatch, t)}
+      onSubmit={submitForm('login', dispatch, t)}
     >
       <Form className="col-12 col-md-6 mt-3 mt-mb-0">
         <h1 className="text-center mb-4">

@@ -4,14 +4,14 @@ import { useTranslation } from 'react-i18next';
 import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
 import cn from 'classnames';
-import signupHandler from '../signupHandler.js';
+import submitForm from '../submitForm.js';
 
 const SignupForm = () => {
   const dispatch = useDispatch();
 
-  const { signupError } = useSelector((state) => state.errors);
+  const { signup } = useSelector((state) => state.errors);
 
-  const isConflict = signupError.includes(409);
+  const isConflict = signup.includes(409);
 
   const inputUsername = useRef();
   useEffect(() => {
@@ -35,7 +35,7 @@ const SignupForm = () => {
           .oneOf([Yup.ref('password')], t('signupForm.errors.similarity'))
           .required(t('signupForm.errors.required')),
       })}
-      onSubmit={signupHandler(dispatch, t)}
+      onSubmit={submitForm('signup', dispatch, t)}
     >
       {({ errors, touched }) => (
         <Form className="">
