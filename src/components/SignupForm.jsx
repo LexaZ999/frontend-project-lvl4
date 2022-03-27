@@ -5,6 +5,7 @@ import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
 import cn from 'classnames';
 import submitForm from '../submitForm.js';
+import FieldPass from './FieldPass.jsx';
 
 const SignupForm = () => {
   const dispatch = useDispatch();
@@ -62,39 +63,8 @@ const SignupForm = () => {
               {errors.username && touched.username ? errors.username : null}
             </div>
           </div>
-
-          <div className="form-floating mb-4">
-            <Field
-              name="password"
-              type="password"
-              id="password"
-              className={cn('mb-2', 'form-control', {
-                'is-invalid': errors.password && touched.password,
-              })}
-              placeholder={t('signupForm.password')}
-            />
-            <label htmlFor="username">{t('signupForm.password')}</label>
-            <div className="invalid-feedback">
-              {errors.password && touched.password ? errors.password : null}
-            </div>
-          </div>
-          <div className="form-floating mb-4">
-            <Field
-              name="confirmPassword"
-              type="password"
-              id="confirmPassword"
-              className={cn('mb-2', 'form-control', {
-                'is-invalid': errors.confirmPassword && touched.confirmPassword,
-              })}
-              placeholder={t('signupForm.confirmPassword')}
-            />
-            <label htmlFor="username">{t('signupForm.confirmPassword')}</label>
-            <div className="invalid-feedback">
-              {errors.confirmPassword && touched.confirmPassword
-                ? errors.confirmPassword
-                : null}
-            </div>
-          </div>
+          <FieldPass name="password" errors={errors} touched={touched} />
+          <FieldPass name="confirmPassword" errors={errors} touched={touched} />
 
           <button className="w-100 mb-3 btn btn-outline-primary" type="submit">
             {t('signupForm.submit')}
