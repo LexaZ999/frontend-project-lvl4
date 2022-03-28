@@ -1,4 +1,4 @@
-import { toast } from 'react-toastify';
+import socketErrorHandler from './socketErrorHandler.js';
 
 const removeChannelHandler = (socket, onHide, channelForChangeId, t) => () => {
   socket
@@ -7,12 +7,7 @@ const removeChannelHandler = (socket, onHide, channelForChangeId, t) => () => {
       'removeChannel',
       { id: channelForChangeId },
       (err) => {
-        if (err) {
-          toast.error(t('popUp.networkError'));
-        } else {
-          onHide();
-          toast.success(t('popUp.channelRemoved'));
-        }
+        socketErrorHandler(err, onHide, t, 'Removed');
       },
     );
 };

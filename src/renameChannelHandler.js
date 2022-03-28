@@ -1,4 +1,4 @@
-import { toast } from 'react-toastify';
+import socketErrorHandler from './socketErrorHandler.js';
 
 const renameChannelHandler = (socket, onHide, channelForChangeId, t) => (
   { name },
@@ -12,12 +12,7 @@ const renameChannelHandler = (socket, onHide, channelForChangeId, t) => (
         name,
       },
       (err) => {
-        if (err) {
-          toast.error(t('popUp.networkError'));
-        } else {
-          onHide();
-          toast.success(t('popUp.channelRenamed'));
-        }
+        socketErrorHandler(err, onHide, t, 'Renamed');
       },
     );
 };
