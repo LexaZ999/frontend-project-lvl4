@@ -2,67 +2,41 @@ import React, { useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import axios from 'axios';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Spinner } from 'react-bootstrap';
 import { toast } from 'react-toastify';
-import routes from '../routes';
-import Channels from '../components/Channels.jsx';
-import MessageBoxHeader from '../components/MessageBoxHeader.jsx';
-import MessageBox from '../components/MessageBox.jsx';
-import MessageForm from '../components/MessageForm.jsx';
-import { addMessages } from '../slices/messagesSlice.js';
-import { addChannels } from '../slices/channelsSlice';
-import { resetModalShow } from '../slices/modalSlice';
-import ChannelModal from '../components/modals/ChannelModal.jsx';
-import filterBadWords from '../filterBadWords';
+import fetchData from '../fetchData.js';
+import ChatBox from '../components/ChatBox.jsx';
 
 const Home = () => {
-  const { authUser } = useSelector((state) => state);
+  const { authUser, channels } = useSelector((state) => state);
   const dispatch = useDispatch();
   const { t } = useTranslation();
-
+  console.log(3, channels.loading);
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get(routes.dataPath(), {
-          headers: {
-            Authorization: `Bearer ${authUser.token}`,
-          },
-        });
-
-        const { messages } = res.data;
-        const filtredMessages = messages.map(({ message, ...rest }) => ({
-          message: filterBadWords(message), ...rest,
-        }));
-        dispatch(addMessages(filtredMessages));
-        dispatch(addChannels(res.data.channels));
-      } catch (error) {
-        toast.error(t('popUp.networkError'));
-      }
-    };
-    if (authUser.status === 'login') fetchData();
+    if (authUser.status === 'login') dispatch(fetchData(authUser));
   }, []);
 
   if (authUser.status !== 'login') return <Navigate to="/login" />;
 
-  return (
-    <>
-      <ChannelModal onHide={() => dispatch(resetModalShow())} />
-      <Container className="h-100 my-4 overflow-hidden rounded shadow">
-        <Row className="h-100 bg-white flex-md-row">
-          <Col xs="4" md="3" className="border-end pt-5 px-0 bg-light">
-            <Channels />
-          </Col>
-          <Col xs className="p-0 h-100">
-            <div className="d-flex flex-column h-100">
-              <MessageBoxHeader />
-              <MessageBox />
-              <MessageForm />
-            </div>
-          </Col>
-        </Row>
-      </Container>
-    </>
-  );
+  switch (channels.loading) {
+    case 'idle':
+      return <ChatBox />;
+
+    case 'loading':
+      return (
+        <div className="d-flex justify-content-center align-items-center h-100">
+          <Spinner animation="border" variant="primary" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        </div>
+      );
+
+    case 'failed':
+      toast.error(t('popUp.networkError'));
+      return null;
+
+    default:
+      throw new Error(`Unknown order state: '${channels.loading}'!`);
+  }
 };
 export default Home;

@@ -1,4 +1,5 @@
 import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
+import fetchData from '../fetchData.js';
 
 const channelsAdapter = createEntityAdapter();
 
@@ -6,6 +7,8 @@ const initialState = channelsAdapter.getInitialState({
   currentChannelId: 1,
   channelForChangeId: null,
   defaultChannel: 1,
+  loading: 'idle',
+  error: null,
 });
 
 const channelsSlice = createSlice({
@@ -22,6 +25,23 @@ const channelsSlice = createSlice({
     setChannelForChange: (state, action) => {
       state.channelForChangeId = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchData.pending, (state) => {
+        state.loading = 'loading';
+        state.error = null;
+      })
+      .addCase(fetchData.fulfilled, (state, action) => {
+        const { channels } = action.payload;
+        channelsAdapter.addMany(state, channels);
+        state.loading = 'idle';
+        state.error = null;
+      })
+      .addCase(fetchData.rejected, (state, action) => {
+        state.loading = 'failed';
+        state.error = action.error;
+      });
   },
 });
 

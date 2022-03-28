@@ -9,8 +9,7 @@ import SocketContext from './SocketContext.js';
 import socketEventHandlers from './socketEventHandlers.js';
 import i18n from './i18n.js';
 
-const init = () => {
-  const socket = io();
+const init = (socket = io()) => {
   socketEventHandlers(socket);
 
   const rollbarConfig = {
