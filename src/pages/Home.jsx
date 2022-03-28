@@ -11,7 +11,6 @@ const Home = () => {
   const { authUser, channels } = useSelector((state) => state);
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  console.log(3, channels.loading);
   useEffect(() => {
     if (authUser.status === 'login') dispatch(fetchData(authUser));
   }, []);
